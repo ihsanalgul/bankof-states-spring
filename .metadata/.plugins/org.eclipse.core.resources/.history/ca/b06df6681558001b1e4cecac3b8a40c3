@@ -1,0 +1,5 @@
+package com.bank.response;
+
+public class LoginResponse {
+
+}

@@ -1,21 +1,6 @@
 
 //	@Autowired //Dependency Injection on demand only JVM memory safe
 //	UserDetailsServiceImpl userDetailService;
-	
-//	//Authentication
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		//builder design pattern returns same
-////		auth.inMemoryAuthentication()
-////		.withUser("user")
-////		.password("user")
-////		.roles("USER")
-////		.and()
-////		.withUser("admin")
-////		.password("admin")
-////		.roles("ADMIN");
-//	}
-	
 package com.bank.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,13 +39,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable()		//csrf().disable() Anybody cannot change your headers to save from attacks
+		httpSecurity.cors().and().csrf().disable()
 				.authorizeRequests().antMatchers("/auth/**").permitAll().
 						anyRequest().authenticated().and().
 						exceptionHandling().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//jwtRequestFilter if it is match allow or not
+
 	}
 
 	@Bean
@@ -68,4 +53,3 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 }
-

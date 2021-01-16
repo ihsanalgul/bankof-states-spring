@@ -2,8 +2,9 @@ package com.bank.response;
 
 import lombok.Data;
 
-@Data //@Getter+@Setter+@ToString+@Equals for pojo class
+//@Getter+@Setter+@ToString+@Equals for pojo class
+@Data
 public class Response {
-	boolean isSuccessful;
+	boolean isSuccess;
 	String message;
 }

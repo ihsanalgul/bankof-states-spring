@@ -38,6 +38,7 @@ import com.bank.request.LoginForm;
 import com.bank.request.SignUpForm;
 import com.bank.response.LoginResponse;
 import com.bank.response.Response;
+import com.bank.service.AccountService;
 import com.bank.service.UserService;
 import com.bank.util.JwtUtil;
 
@@ -57,6 +58,9 @@ public class LoginController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	AccountService accountService;
 
 	@Autowired
 	PasswordEncoder encoder;
@@ -67,7 +71,7 @@ public class LoginController {
 
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
-// storing princple object
+// storing principle object
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -108,6 +112,7 @@ public class LoginController {
 			userRoles.add(new UserRole(user, role));
 		});
 		user.setUserRoles(userRoles);
+		user.setAccount(accountService.createAccount());		
 		userRepo.save(user);
 		response.setMessage("User Registered Successfully!");
 		response.setSuccess(true);

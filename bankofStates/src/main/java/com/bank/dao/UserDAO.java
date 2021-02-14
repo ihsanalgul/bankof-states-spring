@@ -19,4 +19,5 @@ public class UserDAO {
 	private Long accountNumber;
 	private BigDecimal accountBalance;
 	private List<TransactionDAO> transactions;
+	private List<RecipientDAO> recipients;
 }

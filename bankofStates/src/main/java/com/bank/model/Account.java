@@ -22,7 +22,7 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Long accountNumber;
-	private BigDecimal accountBalance;
+	private BigDecimal accountBalance=BigDecimal.ZERO;
 
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
